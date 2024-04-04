@@ -1,6 +1,6 @@
 # Web Pinger
 
-Web Pinger is a simple Python command-line tool for sending ping requests to a specified URL, resolving DNS addresses, and customizing ping settings.
+Web Pinger is useful for network diagnostics and monitoring the availability of web services. With WebPinger, users can easily verify the reachability of web servers and detect potential network issues. It is useful for sending ping requests to a specified URL and resolving DNS addresses.
 
 ## Installation
 
