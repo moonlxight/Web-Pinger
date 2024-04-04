@@ -1,20 +1,39 @@
+import os
+import sys
 import subprocess
+import colorama
+from colorama import Fore, Style, init
+init()
 
-def ping_url(url):
+def ping_url(url, count):
     # Ping işlemini gerçekleştirme
-    process = subprocess.Popen(["ping", "-c", "1", url], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-    output, error = process.communicate()
-
+    result = subprocess.run(["ping", "-c", str(count), url], capture_output=True, text=True)
+    
     # Ping sonucunu kontrol etme
-    if "1 packets transmitted, 1 received" in output.decode():
-        return True
+    if result.returncode == 0:
+        return True, result.stdout.strip()
     else:
-        return False
+        return False, result.stderr.strip()
 
-# Test etmek için bir URL girin
-url = input("Lütfen ping atmak istediğiniz URL'yi girin: ")
+def main_menu():
+    print(Fore.LIGHTGREEN_EX + Style.BRIGHT + "Ping Menüsü")
+    print("-----------------")
+    print("1. Ping Gönder")
+    print(Style.RESET_ALL)
 
-if ping_url(url):
+while True:
+    main_menu()
+    choice = input("Lütfen seçim yapınız: ")
+
+    if choice == "1":
+    url = input("Lütfen ping atmak istediğiniz URL'yi girin: ")
+    count = int(input("Kaç ping göndermek istiyorsunuz?: "))
+
+success, result = ping_url(url)
+
+if success:
     print(f"{url} adresine ping başarıyla gönderildi.")
+    print("Ping sonucu:", result)
 else:
     print(f"{url} adresine ping gönderilirken bir hata oluştu.")
+    print("Hata mesajı:", result)
