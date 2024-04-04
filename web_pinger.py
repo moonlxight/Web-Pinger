@@ -7,7 +7,7 @@
 # ||                        /____/                           ||
 # >>=========================================================<<
 #           This project was developed by TwistyJead ツ
-#                    github.com/moonlxght
+#                    github.com/moonlxight
 
 import os
 import sys
