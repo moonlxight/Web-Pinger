@@ -6,18 +6,19 @@
 # ||/_/   |__/|__/_/____/\__/\__, /\____/\___/\__,_/\__,_/   ||
 # ||                        /____/                           ||
 # >>=========================================================<<
-#           Tʜɪꜱ ᴘʀᴏᴊᴇᴄᴛ ᴡᴀꜱ ᴅᴇᴠᴇʟᴏᴘᴇᴅ ʙʏ TᴡɪꜱᴛʏJᴇᴀᴅ ツ
-#                    ɢɪᴛʜᴜʙ.ᴄᴏᴍ/ᴍᴏᴏɴʟxɪɢʜᴛ
+#           This project was developed by TwistyJead ツ
+#                    github.com/moonlxght
 
 import os
 import sys
-import subprocess  # Harici işlemler çağırmak için
-import socket  # Ağ işlemleri için
+import subprocess  # For calling external processes
+import socket  # For networking operations
 import colorama
 from colorama import Fore, Style, init
 
 init()
 os.system("title TwistyJead's Web Pinging Tool")
+
 def web_pinger_art():
     sys.stderr.writelines(Fore.LIGHTCYAN_EX + """
                                      _       __     __    ____  _                      
@@ -27,92 +28,93 @@ def web_pinger_art():
                                     |__/|__/\___/_.___/_/   /_/_/ /_/\__, /\___/_/     
                                                                     /____/             
 """)
+
 def menu():
-    # Ekran temizleniyor
-    if os.name == "nt":  # Windows işletim sistemini algıla
-        os.system("cls") # Windows'un ekran temizleme komutu
-    else:  # Diğer işletim sistemleri için (Linux/MacOS)
+    # Clearing the screen
+    if os.name == "nt":  # Detecting Windows operating system
+        os.system("cls")  # Clearing the screen for Windows
+    else:  # For other operating systems (Linux/MacOS)
         os.system("clear")
 
     web_pinger_art()
-    
-    sys.stdout.write(Fore.LIGHTCYAN_EX + "Seçenekler:" + "\n")
-    sys.stdout.write(Fore.LIGHTYELLOW_EX + "[1] " + Fore.LIGHTCYAN_EX + "Belirli bir URL'ye sürekli ping gönder" + "\n")
-    sys.stdout.write(Fore.LIGHTYELLOW_EX + "[2] " + Fore.LIGHTCYAN_EX + "Girilen DNS'nin ana adresini çöz" + "\n")
-    sys.stdout.write(Fore.LIGHTYELLOW_EX + "[3] " + Fore.LIGHTCYAN_EX + "Programı kapat" + "\n")
 
-# Ana döngüyü başlatan fonksiyon
+    sys.stdout.write(Fore.LIGHTCYAN_EX + "Options:" + "\n")
+    sys.stdout.write(Fore.LIGHTYELLOW_EX + "[1] " + Fore.LIGHTCYAN_EX + "Send continuous ping to a specific URL" + "\n")
+    sys.stdout.write(Fore.LIGHTYELLOW_EX + "[2] " + Fore.LIGHTCYAN_EX + "Resolve the main address of the entered DNS" + "\n")
+    sys.stdout.write(Fore.LIGHTYELLOW_EX + "[3] " + Fore.LIGHTCYAN_EX + "Exit the program" + "\n")
+
+# Function to initiate the main loop
 def main():
     while True:
-        # Ana menüyü göster
+        # Show the main menu
         menu()
-        
-        # Kullanıcıdan seçim yapmasını iste
-        choice = input("\n" + Fore.LIGHTYELLOW_EX + "Lütfen bir seçenek numarası girin: " + Fore.LIGHTCYAN_EX)
 
-        # Kullanıcının seçimine göre işlem yap
+        # Ask the user to make a selection
+        choice = input("\n" + Fore.LIGHTYELLOW_EX + "Please enter an option number: " + Fore.LIGHTCYAN_EX)
+
+        # Perform actions based on user's choice
         if choice == "1":
             ping_continuous()
         elif choice == "2":
             resolve_address()
         elif choice == "3":
-            print("Program kapatılıyor...")
+            print("Exiting the program...")
             break
         else:
-            print("Geçersiz seçenek! Lütfen yeniden deneyin.")
+            print("Invalid option! Please try again.")
 
-# Belirli bir URL'ye sürekli ping gönderen fonksiyon
+# Function to continuously send ping to a specific URL
 def ping_continuous():
-    # Windows veya diğer işletim sistemleri için ekran temizleme işlemleri bölümü
+    # Screen clearing operations section for Windows or other operating systems
     if os.name == "nt":
         os.system("cls")
     else:
         os.system("clear")
 
     web_pinger_art()
-    url = input("Lütfen ping atmak istediğiniz URL'yi girin: ") # Kullanıcıdan ping atılacak URL'yi al
-    
+    url = input("Please enter the URL you want to ping: ")  # Get the URL to ping from the user
+
     try:
         while True:
-            process = subprocess.Popen(["ping", "-t", url], stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True) # Ping işlemini gerçekleştirir
+            process = subprocess.Popen(["ping", "-t", url], stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)  # Perform the ping
 
             try:
                 for line in process.stdout:
                     print(line.strip())
-            except KeyboardInterrupt: # Ctrl+C kısayolunu dinler
-                print("\nPing gönderme işlemi durduruldu.") # Ctrl+C'ye basıldığında ping işlemini durdur
+            except KeyboardInterrupt:  # Listen for Ctrl+C shortcut
+                print("\nPinging stopped.")  # Stop pinging when Ctrl+C is pressed
                 break
             finally:
-                # İşlem tamamlandığında "process" yani "işlem" mnanasına gelen nesneyi sonlandır
+                # Terminate the "process" object (which represents the subprocess) when the operation is complete
                 process.terminate()
                 process.wait()
-                
-    except Exception as e:
-        print("Bir hata oluştu:", e)
 
-def resolve_address(): # Girilen URL'nin IP adresini çözen fonksiyon
-    # Windows veya diğer işletim sistemleri için ekran temizleme işlemleri bölümü
+    except Exception as e:
+        print("An error occurred:", e)
+
+def resolve_address():  # Function to resolve the IP address of the entered URL
+    # Screen clearing operations section for Windows or other operating systems
     if os.name == "nt":
         os.system("cls")
     else:
         os.system("clear")
-    
-    web_pinger_art()
-    
-    address = input(Fore.LIGHTYELLOW_EX + " [>] " + Fore.LIGHTCYAN_EX + "Lütfen çözümlemek istediğiniz URL'yi girin: ") # Kullanıcıdan çözümlenmek istenen URL'yi al
-    
-    try:
-        # URL'nin IP adresini çözme işlemi
-        resolved_addresses = socket.getaddrinfo(address, None)
-        
-        # Çözümlenen IP adreslerini ekrana yazdırma kısmı
-        print(Fore.LIGHTCYAN_EX + f"{address} adresinin çözümlenmiş IP adresleri:")
-        for item in resolved_addresses:
-            print(Fore.LIGHTMAGENTA_EX + item[4][0]) # Çözümlenen IP adreslerini ekrana yazdır
-            input("\n" + Fore.LIGHTYELLOW_EX + " [?] " + "Enter'a basarak tekrar ana menüye geçiş yapın.")  # Enter yerine başka tuşları da tıklasa her türlü geçer
-    except Exception as e:
-        print("Bir hata oluştu:", e)
 
-# Ana program bölümü
+    web_pinger_art()
+
+    address = input(Fore.LIGHTYELLOW_EX + " [>] " + Fore.LIGHTCYAN_EX + "Please enter the URL to resolve: ")  # Get the URL to resolve from the user
+
+    try:
+        # Resolving the IP address of the URL
+        resolved_addresses = socket.getaddrinfo(address, None)
+
+        # Printing the resolved IP addresses to the screen
+        print(Fore.LIGHTCYAN_EX + f"Resolved IP addresses for {address}:")
+        for item in resolved_addresses:
+            print(Fore.LIGHTMAGENTA_EX + item[4][0])  # Print the resolved IP addresses to the screen
+            input("\n" + Fore.LIGHTYELLOW_EX + " [?] " + "Press Enter to go back to the main menu.")
+    except Exception as e:
+        print("An error occurred:", e)
+
+# Main program section
 if __name__ == "__main__":
-    main()  # Ana döngüyü başlatır
+    main()  # Initiate the main loop
