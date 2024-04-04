@@ -1,4 +1,5 @@
 import subprocess
+import socket
 
 def main():
     print("Ping Programına Hoş Geldiniz!")
@@ -66,7 +67,21 @@ def ping_continuous():
 
 def resolve_addresses():
     # Adresleri ana bilgisayarlara çözme işlemini gerçekleştirin
-    pass
+    
+    """
+    Verilen bir URL veya IP adresinin ana bilgisayarlara çözülmesini sağlar.
+    """
+    address = input("Lütfen çözümlemek istediğiniz URL veya IP adresini girin: ")
+
+    try:
+        # Adresi çözümleme işlemi
+        resolved_addresses = socket.getaddrinfo(address, None)
+        
+        print(f"{address} adresinin çözümlenmiş IP adresleri:")
+        for item in resolved_addresses:
+            print(item[4][0])
+    except Exception as e:
+        print("Bir hata oluştu:", e)
 
 def set_echo_count():
     # Echo isteği sayısını belirleyin
