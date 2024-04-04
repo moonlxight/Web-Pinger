@@ -1,5 +1,8 @@
 import subprocess
 import socket
+import colorama
+from colorama import Fore, Style, init
+init()
 
 def main():
     print("Ping Programına Hoş Geldiniz!")
@@ -9,12 +12,7 @@ def main():
         print("Seçenekler:")
         print("1: Belirli bir URL'e sürekli ping gönderme")
         print("2: Adresleri ana bilgisayarlara çözme")
-        print("3: Echo isteği sayısı belirleme")
-        print("4: Gönderilen veri paketi boyutunu belirleme")
-        print("5: İnternet Protokolü sürümünü belirleme")
-        print("6: Paketlerin Parçalanmasını Engelleyin")
-        print("7: Zaman Aşımı Belirleme")
-        print("8: Programı Kapat")
+        print("3: Programı kapat")
 
         choice = input("Lütfen bir seçenek numarası girin: ")
 
@@ -23,16 +21,6 @@ def main():
         elif choice == "2":
             resolve_addresses()
         elif choice == "3":
-            set_echo_count()
-        elif choice == "4":
-            set_packet_size()
-        elif choice == "5":
-            set_ip_version()
-        elif choice == "6":
-            set_fragmentation()
-        elif choice == "7":
-            set_timeout()
-        elif choice == "8":
             print("Program kapatılıyor...")
             break
         else:
@@ -82,38 +70,6 @@ def resolve_addresses():
             print(item[4][0])
     except Exception as e:
         print("Bir hata oluştu:", e)
-
-def set_echo_count():
-    # Echo isteği sayısını belirleyin
-    
-    """
-    Ping işlemi sırasında gönderilecek olan echo isteği sayısını belirler.
-    """
-    while True:
-        echo_count = input("Lütfen echo isteği sayısını belirleyin (varsayılan 4): ")
-
-        if echo_count.isdigit() and int(echo_count) > 0:
-            return int(echo_count)
-        elif echo_count == "":
-            return 4
-        else:
-            print("Geçersiz giriş! Lütfen pozitif bir tam sayı girin.")
-
-def set_packet_size():
-    # Gönderilen veri paketi boyutunu belirleyin
-    pass
-
-def set_ip_version():
-    # İnternet Protokolü sürümünü belirleyin
-    pass
-
-def set_fragmentation():
-    # Paketlerin Parçalanmasını Engelleyin
-    pass
-
-def set_timeout():
-    # Zaman aşımını belirleyin
-    pass
 
 if __name__ == "__main__":
     main()
