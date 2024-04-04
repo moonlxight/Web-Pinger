@@ -48,22 +48,21 @@ def ping_continuous():
             # Ping işlemini gerçekleştirme
             process = subprocess.Popen(["ping", "-t", url], stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
 
-            # Ping sonucunu alarak işlemi bekletme
-            stdout, stderr = process.communicate()
-
-            # Ping sonucunu kontrol etme
-            if process.returncode == 0:
-                print("Ping başarıyla gönderildi!")
-                if stdout:
-                    print("Ping sonucu:", stdout.strip())
-                else:
-                    print("Ping sonucu alınamadı.")
-            else:
-                print("Ping gönderilirken bir hata meydana geldi!")
-                print("Hata mesajı:", stderr.strip())
-
-    except KeyboardInterrupt:
-        print("Ping gönderme işlemi durduruldu.")
+            try:
+                # Ping sonuçlarını alarak işlemi bekletme
+                for line in process.stdout:
+                    print(line.strip())
+            except KeyboardInterrupt:
+                # Ctrl+C'ye basıldığında ping işlemini durdur
+                print("\nPing gönderme işlemi durduruldu.")
+                break
+            finally:
+                # İşlem tamamlandığında process objesini sonlandır
+                process.terminate()
+                process.wait()
+                
+    except Exception as e:
+        print("Bir hata oluştu:", e)
 
 def resolve_addresses():
     # Adresleri ana bilgisayarlara çözme işlemini gerçekleştirin
