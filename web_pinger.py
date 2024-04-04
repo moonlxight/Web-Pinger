@@ -38,8 +38,22 @@ def main():
             print("Geçersiz seçenek! Lütfen yeniden deneyin.")
 
 def ping_continuous():
-    # Belirli bir URL'e sürekli ping gönderme işlemini gerçekleştirin
-    pass
+    url = input("Lütfen ping atmak istediğiniz URL'yi girin: ")
+    
+    try:
+        while True:
+            # Ping işlemini gerçekleştirme
+            result = subprocess.run(["ping", "-t", url], capture_output=True, text=True)
+
+            # Ping sonucunu kontrol etme
+            if result.returncode == 0:
+                print("Ping başarıyla gönderildi!")
+                print("Ping sonucu:", result.stdout.strip())
+            else:
+                print("Ping gönderilirken bir hata meydana geldi!")
+                print("Hata mesajı:", result.stderr.strip())
+    except KeyboardInterrupt:
+        print("Ping gönderme işlemi durduruldu.")
 
 def resolve_addresses():
     # Adresleri ana bilgisayarlara çözme işlemini gerçekleştirin
