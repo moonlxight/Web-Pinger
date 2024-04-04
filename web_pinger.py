@@ -9,7 +9,7 @@ from sys import stdout, stderr
 init()
 
 def web_pinger_art():
-    print("""
+    stderr.writelines(Fore.LIGHTCYAN_EX + """
  _       __     __    ____  _                      
 | |     / /__  / /_  / __ \(_)___  ____ ____  _____
 | | /| / / _ \/ __ \/ /_/ / / __ \/ __ `/ _ \/ ___/
