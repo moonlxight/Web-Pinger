@@ -18,8 +18,10 @@ def ping_url(url, count, timeout):
 def main_menu():
     print(Fore.LIGHTGREEN_EX + Style.BRIGHT + "Ping Menüsü")
     print("-----------------")
-    print("1: Ping gönder")
-    print("2: Programı kapat")
+    print("1: Basit ping gönder")
+    print("2: Paket boyutunu belirterek ping gönder")
+    print("3: Ping gönderme süresini ayarla")
+    print("4: Programı kapat")
     print(Style.RESET_ALL)
 
 while True:
@@ -29,7 +31,7 @@ while True:
     if choice == "1":
         url = input("Lütfen ping atmak istediğiniz URL'yi girin: ")
         count = int(input("Kaç ping göndermek istiyorsunuz?: "))
-        success, result = ping_url(url, count)
+        success, result = ping_url(url, count, 1)
         if success:
             print(Fore.LIGHTGREEN_EX + f"{url} adresine ping başarıyla gönderildi.")
             print("Ping sonucu:", result)
@@ -38,6 +40,18 @@ while True:
             print("Hata mesajı:", result)
         print(Style.RESET_ALL)
     elif choice == "2":
+        url = input("Lütfen ping atmak istediğiniz URL'yi girin: ")
+        count = int(input("Kaç ping göndermek istiyorsunuz?: "))
+        size = int(input("Paket boyutunu belirleyin (varsayılan 56 byte): "))
+        success, result = ping_url(url, count, 1)
+        if success:
+            print(Fore.LIGHTGREEN_EX + f"{url} adresine ping başarıyla gönderildi.")
+            print("Ping sonucu:", result)
+        else:
+            print(Fore.RED + f"{url} adresine ping gönderilirken bir hata meydana geldi!")
+            print("Hata mesajı:", result)
+        print(Style.RESET.ALL)
+    elif choice == "4":
         print("Programdan çıkılıyor...")
         break
     else:
