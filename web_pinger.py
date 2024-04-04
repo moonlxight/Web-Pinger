@@ -1,107 +1,69 @@
 import subprocess
-from colorama import Fore, Style, init
-init()
 
-def ping_simple(url, count, timeout):
-    try:
-        # Ping işlemini gerçekleştirme
-        result = subprocess.run(["ping", "-c", str(count), url], capture_output=True, text=True, timeout=timeout)
-    
-        # Ping sonucunu kontrol etme
-        if result.returncode == 0:
-            return True, result.stdout.strip()
-        else:
-            return False, result.stderr.strip()
-    except subprocess.TimeoutExpired:
-        return False, "Ping işlemi zaman aşımına uğradı."
-    except Exception as e:
-        return False, f"Ping işlemi sırasında bir hata meydana geldi: {str(e)}"
+def main():
+    print("Ping Programına Hoş Geldiniz!")
+    print("-----------------------------")
 
-def ping_with_size(url, count, size, timeout):
-    try:
-        # Ping işlemini gerçekleştirme
-        result = subprocess.run(["ping", "-c", str(count), "-s", str(size), url], capture_output=True, text=True, timeout=timeout)
-    
-        # Ping sonucunu kontrol etme
-        if result.returncode == 0:
-            return True, result.stdout.strip()
-        else:
-            return False, result.stderr.strip()  # Hata mesajı almak için stderr kullanılıyor
-    except subprocess.TimeoutExpired:
-        return False, "Ping işlemi zaman aşımına uğradı."
-    except Exception as e:
-        print("Ping işlemi sırasında bir hata oluştu:", e)
-        return False, f"Ping işlemi sırasında bir hata meydana geldi: {str(e)}"
+    while True:
+        print("Seçenekler:")
+        print("1: Belirli bir URL'e sürekli ping gönderme")
+        print("2: Adresleri ana bilgisayarlara çözme")
+        print("3: Echo isteği sayısı belirleme")
+        print("4: Gönderilen veri paketi boyutunu belirleme")
+        print("5: İnternet Protokolü sürümünü belirleme")
+        print("6: Paketlerin Parçalanmasını Engelleyin")
+        print("7: Zaman Aşımı Belirleme")
+        print("8: Programı Kapat")
 
-def ping_with_timeout(url, count, timeout, size=56):
-    try:
-        # Ping işlemini gerçekleştirme
-        result = subprocess.run(["ping", "-c", str(count), "-s", str(size), "-W", str(timeout), url], capture_output=True, text=True, timeout=timeout)
-    
-        # Ping sonucunu kontrol etme
-        if result.returncode == 0:
-            return True, result.stdout.strip()
-        else:
-            return False, result.stderr.strip()  # Hata mesajı almak için stderr kullanılıyor
-    except subprocess.TimeoutExpired:
-        return False, "Ping işlemi zaman aşımına uğradı."
-    except Exception as e:
-        print("Ping işlemi sırasında bir hata oluştu:", e)
-        return False, f"Ping işlemi sırasında bir hata meydana geldi: {str(e)}"
+        choice = input("Lütfen bir seçenek numarası girin: ")
 
-def main_menu():
-    print(Fore.LIGHTGREEN_EX + Style.BRIGHT + "Ping Menüsü")
-    print("-----------------")
-    print("1: Basit ping gönder")
-    print("2: Paket boyutunu belirterek ping gönder")
-    print("3: Ping gönderme süresini ayarla")
-    print("4: Programı kapat")
-    print(Style.RESET_ALL)
+        if choice == "1":
+            ping_continuous()
+        elif choice == "2":
+            resolve_addresses()
+        elif choice == "3":
+            set_echo_count()
+        elif choice == "4":
+            set_packet_size()
+        elif choice == "5":
+            set_ip_version()
+        elif choice == "6":
+            set_fragmentation()
+        elif choice == "7":
+            set_timeout()
+        elif choice == "8":
+            print("Program kapatılıyor...")
+            break
+        else:
+            print("Geçersiz seçenek! Lütfen yeniden deneyin.")
 
-while True:
-    main_menu()
-    choice = input("Lütfen seçim yapınız: ")
+def ping_continuous():
+    # Belirli bir URL'e sürekli ping gönderme işlemini gerçekleştirin
+    pass
 
-    if choice == "1":
-        url = input("Lütfen ping atmak istediğiniz URL'yi girin: ")
-        count = int(input("Kaç ping göndermek istiyorsunuz?: "))
-        timeout = int(input("Ping gönderme süresini belirleyin (saniye cinsinden): "))
-        success, result = ping_simple(url, count, timeout)
-        if success:
-            print(Fore.LIGHTGREEN_EX + f"{url} adresine ping başarıyla gönderildi!")
-            print("Ping sonucu:", result)
-        else:
-            print(Fore.RED + f"{url} adresine ping gönderilirken bir hata meydana geldi!")
-            print("Hata mesajı:", result)
-        print(Style.RESET_ALL)
-    elif choice == "2":
-        url = input("Lütfen ping atmak istediğiniz URL'yi girin: ")
-        count = int(input("Kaç ping göndermek istiyorsunuz?: "))
-        size = int(input("Paket boyutunu belirleyin (varsayılan 56 byte): "))
-        timeout = int(input("Ping gönderme süresini belirleyin (saniye cinsinden): "))
-        success, result = ping_with_size(url, count, size, timeout)
-        if success:
-            print(Fore.LIGHTGREEN_EX + f"{url} adresine ping başarıyla gönderildi!")
-            print("Ping sonucu:", result)
-        else:
-            print(Fore.RED + f"{url} adresine ping gönderilirken bir hata meydana geldi!")
-            print("Hata mesajı:", result)
-        print(Style.RESET_ALL)
-    elif choice == "3":
-        url = input("Lütfen ping atmak istediğiniz URL'yi girin: ")
-        count = int(input("Kaç ping göndermek istiyorsunuz?: "))
-        timeout = int(input("Ping gönderme süresini belirleyin (saniye cinsinden): "))
-        success, result = ping_with_timeout(url, count, timeout)
-        if success:
-            print(Fore.LIGHTGREEN_EX + f"{url} adresine ping başarıyla gönderildi!")
-            print("Ping sonucu:", result)
-        else:
-            print(Fore.RED + f"{url} adresine ping gönderilirken bir hata meydana geldi!")
-            print("Hata mesajı:", result)
-        print(Style.RESET_ALL)
-    elif choice == "4":
-        print("Programdan çıkılıyor...")
-        break
-    else:
-        print(Fore.LIGHTYELLOW_EX + "Böyle bir seçenek yok.")
-        print(Style.RESET_ALL)
+def resolve_addresses():
+    # Adresleri ana bilgisayarlara çözme işlemini gerçekleştirin
+    pass
+
+def set_echo_count():
+    # Echo isteği sayısını belirleyin
+    pass
+
+def set_packet_size():
+    # Gönderilen veri paketi boyutunu belirleyin
+    pass
+
+def set_ip_version():
+    # İnternet Protokolü sürümünü belirleyin
+    pass
+
+def set_fragmentation():
+    # Paketlerin Parçalanmasını Engelleyin
+    pass
+
+def set_timeout():
+    # Zaman aşımını belirleyin
+    pass
+
+if __name__ == "__main__":
+    main()
