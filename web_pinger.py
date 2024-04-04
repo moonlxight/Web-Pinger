@@ -42,5 +42,3 @@ while True:
     else:
         print(Fore.LIGHTYELLOW_EX + "Böyle bir seçenek yok.")
         print(Style.RESET_ALL)
-
-success, result = ping_url(url)
