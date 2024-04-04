@@ -10,12 +10,12 @@ init()
 
 def web_pinger_art():
     stderr.writelines(Fore.LIGHTCYAN_EX + """
- _       __     __    ____  _                      
-| |     / /__  / /_  / __ \(_)___  ____ ____  _____
-| | /| / / _ \/ __ \/ /_/ / / __ \/ __ `/ _ \/ ___/
-| |/ |/ /  __/ /_/ / ____/ / / / / /_/ /  __/ /    
-|__/|__/\___/_.___/_/   /_/_/ /_/\__, /\___/_/     
-                                /____/             
+                                     _       __     __    ____  _                      
+                                    | |     / /__  / /_  / __ \(_)___  ____ ____  _____
+                                    | | /| / / _ \/ __ \/ /_/ / / __ \/ __ `/ _ \/ ___/
+                                    | |/ |/ /  __/ /_/ / ____/ / / / / /_/ /  __/ /    
+                                    |__/|__/\___/_.___/_/   /_/_/ /_/\__, /\___/_/     
+                                                                    /____/             
 """)
 
 def menu():
@@ -24,15 +24,14 @@ def menu():
     else:
         os.system("clear")
     web_pinger_art()
-    stdout.write("Seçenekler:" + "\n")
-    stdout.write("[1] Belirli bir URL'ye sürekli ping gönder" + "\n")
-    stdout.write("[2] Girilen DNS'nin ana adresini çöz" + "\n")
-    stdout.write("[3] Programı kapat" + "\n")
+    stdout.write(Fore.LIGHTCYAN_EX + "Seçenekler:" + "\n")
+    stdout.write(Fore.LIGHTYELLOW_EX + " [1] " + Fore.LIGHTCYAN_EX + "Belirli bir URL'ye sürekli ping gönder" + "\n")
+    stdout.write(Fore.LIGHTYELLOW_EX + " [2] " + Fore.LIGHTCYAN_EX + "Girilen DNS'nin ana adresini çöz" + "\n")
+    stdout.write(Fore.LIGHTYELLOW_EX + " [3] " + Fore.LIGHTCYAN_EX + "Programı kapat" + "\n")
 def main():
     while True:
         menu()
-
-        choice = input("Lütfen bir seçenek numarası girin: ")
+        choice = input("\n" + Fore.LIGHTYELLOW_EX + "Lütfen bir seçenek numarası girin: " + Fore.LIGHTCYAN_EX)
 
         if choice == "1":
             ping_continuous()
