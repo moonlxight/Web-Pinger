@@ -87,7 +87,7 @@ def resolve_addresses():
         print(Fore.LIGHTCYAN_EX + f"{address} adresinin çözümlenmiş IP adresleri:")
         for item in resolved_addresses:
             print(Fore.LIGHTMAGENTA_EX + item[4][0])
-
+            input("\n" + Fore.LIGHTYELLOW_EX + " [?] " + "Enter'a basarak tekrar ana menüye geçiş yapın.")
     except Exception as e:
         print("Bir hata oluştu:", e)
 
