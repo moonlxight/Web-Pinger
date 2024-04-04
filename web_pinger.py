@@ -25,9 +25,9 @@ def menu():
         os.system("clear")
     web_pinger_art()
     stdout.write(Fore.LIGHTCYAN_EX + "Seçenekler:" + "\n")
-    stdout.write(Fore.LIGHTYELLOW_EX + " [1] " + Fore.LIGHTCYAN_EX + "Belirli bir URL'ye sürekli ping gönder" + "\n")
-    stdout.write(Fore.LIGHTYELLOW_EX + " [2] " + Fore.LIGHTCYAN_EX + "Girilen DNS'nin ana adresini çöz" + "\n")
-    stdout.write(Fore.LIGHTYELLOW_EX + " [3] " + Fore.LIGHTCYAN_EX + "Programı kapat" + "\n")
+    stdout.write(Fore.LIGHTYELLOW_EX + "[1] " + Fore.LIGHTCYAN_EX + "Belirli bir URL'ye sürekli ping gönder" + "\n")
+    stdout.write(Fore.LIGHTYELLOW_EX + "[2] " + Fore.LIGHTCYAN_EX + "Girilen DNS'nin ana adresini çöz" + "\n")
+    stdout.write(Fore.LIGHTYELLOW_EX + "[3] " + Fore.LIGHTCYAN_EX + "Programı kapat" + "\n")
 def main():
     while True:
         menu()
