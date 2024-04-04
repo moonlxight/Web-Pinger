@@ -3,7 +3,6 @@ import sys
 import subprocess
 import socket
 import colorama
-import time
 from colorama import Fore, Style, init
 from os import system, name
 from sys import stdout, stderr
