@@ -5,9 +5,9 @@ import colorama
 from colorama import Fore, Style, init
 init()
 
-def ping_url(url, count):
+def ping_url(url, count, timeout):
     # Ping işlemini gerçekleştirme
-    result = subprocess.run(["ping", "-c", str(count), url], capture_output=True, text=True)
+    result = subprocess.run(["ping", "-c", str(count), "-W", str(timeout), url], capture_output=True, text=True)
     
     # Ping sonucunu kontrol etme
     if result.returncode == 0:
@@ -18,7 +18,8 @@ def ping_url(url, count):
 def main_menu():
     print(Fore.LIGHTGREEN_EX + Style.BRIGHT + "Ping Menüsü")
     print("-----------------")
-    print("1. Ping Gönder")
+    print("1: Ping gönder")
+    print("2: Programı kapat")
     print(Style.RESET_ALL)
 
 while True:
