@@ -26,10 +26,11 @@ def ping_with_size(url, count, size, timeout):
         if result.returncode == 0:
             return True, result.stdout.strip()
         else:
-            return False, result.stderr.strip()
+            return False, result.stderr.strip()  # Hata mesajı almak için stderr kullanılıyor
     except subprocess.TimeoutExpired:
         return False, "Ping işlemi zaman aşımına uğradı."
     except Exception as e:
+        print("Ping işlemi sırasında bir hata oluştu:", e)
         return False, f"Ping işlemi sırasında bir hata meydana geldi: {str(e)}"
 
 def ping_with_timeout(url, count, timeout, size=56):
@@ -41,10 +42,11 @@ def ping_with_timeout(url, count, timeout, size=56):
         if result.returncode == 0:
             return True, result.stdout.strip()
         else:
-            return False, result.stderr.strip()
+            return False, result.stderr.strip()  # Hata mesajı almak için stderr kullanılıyor
     except subprocess.TimeoutExpired:
         return False, "Ping işlemi zaman aşımına uğradı."
     except Exception as e:
+        print("Ping işlemi sırasında bir hata oluştu:", e)
         return False, f"Ping işlemi sırasında bir hata meydana geldi: {str(e)}"
 
 def main_menu():
