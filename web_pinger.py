@@ -1,15 +1,29 @@
+import os
+import sys
 import subprocess
 import socket
 import colorama
 from colorama import Fore, Style, init
+from os import system, name
+from sys import stdout, stderr
 init()
+
+def web_pinger_art():
+    print("""
+ _       __     __    ____  _                      
+| |     / /__  / /_  / __ \(_)___  ____ ____  _____
+| | /| / / _ \/ __ \/ /_/ / / __ \/ __ `/ _ \/ ___/
+| |/ |/ /  __/ /_/ / ____/ / / / / /_/ /  __/ /    
+|__/|__/\___/_.___/_/   /_/_/ /_/\__, /\___/_/     
+                                /____/             
+""")
 
 def main():
     print("Ping Programına Hoş Geldiniz!")
     print("-----------------------------")
 
     while True:
-        print("Seçenekler:")
+        stdout.write("Seçenekler:")
         print("1: Belirli bir URL'e sürekli ping gönderme")
         print("2: Adresleri ana bilgisayarlara çözme")
         print("3: Programı kapat")
