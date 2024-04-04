@@ -5,17 +5,16 @@ import colorama
 from colorama import Fore, Style, init
 init()
 
-def ping_url(url, count, timeout):
+def ping_url(url, count, size, timeout):
     try:
         # Ping işlemini gerçekleştirme
         result = subprocess.run(["ping", "-c", str(count), "-s", str(size), url], capture_output=True, text=True, timeout=timeout)
-        result_choice2 = subprocess.run(["ping", "-c", str(count), url], capture_output=True, text=True, timeout=timeout)
     
         # Ping sonucunu kontrol etme
         if result.returncode == 0:
             return True, result.stdout.strip()
         else:
-            return False, result.stdout.strip()
+            return False, result.stderr.strip()
     except subprocess.TimeoutExpired:
         return False, f"Ping işlemi zaman aşımına uğradı."
     except Exception as e:
@@ -37,7 +36,7 @@ while True:
     if choice == "1":
         url = input("Lütfen ping atmak istediğiniz URL'yi girin: ")
         count = int(input("Kaç ping göndermek istiyorsunuz?: "))
-        success, result = ping_url(url, count, 5000)
+        success, result = ping_url(url, count, 56, 5000)
         if success:
             print(Fore.LIGHTGREEN_EX + f"{url} adresine ping başarıyla gönderildi!")
             print("Ping sonucu:", result)
@@ -52,19 +51,19 @@ while True:
         url = input("Lütfen ping atmak istediğiniz URL'yi girin: ")
         count = int(input("Kaç ping göndermek istiyorsunuz?: "))
         size = int(input("Paket boyutunu belirleyin (varsayılan 56 byte): "))
-        success, result_choice2 = ping_url(url, count, 5000)
+        success, result = ping_url(url, count, size, 5000)
         if success:
             print(Fore.LIGHTGREEN_EX + f"{url} adresine ping başarıyla gönderildi!")
-            print("Ping sonucu:", result_choice2)
+            print("Ping sonucu:", result)
         else:
             print(Fore.RED + f"{url} adresine ping gönderilirken bir hata meydana geldi!")
-            print("Hata mesajı:", result_choice2)
+            print("Hata mesajı:", result)
         print(Style.RESET_ALL)
     elif choice == "3":
         timeout = int(input("Ping gönderme süresini belirleyin (saniye cinsinden): "))
         url = input("Lütfen ping atmak istediğiniz URL'yi girin: ")
         count = int(input("Kaç ping göndermek istiyorsunuz?: "))
-        success, result = ping_url(url, count, timeout)
+        success, result = ping_url(url, count, 56, timeout)
         if success:
             print(Fore.LIGHTGREEN_EX + f"{url} adresine ping başarıyla gönderildi!")
             print("Ping sonucu:", result)
