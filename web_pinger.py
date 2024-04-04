@@ -3,6 +3,7 @@ import sys
 import subprocess
 import socket
 import colorama
+import time
 from colorama import Fore, Style, init
 from os import system, name
 from sys import stdout, stderr
@@ -74,15 +75,20 @@ def resolve_addresses():
     """
     Verilen bir URL veya IP adresinin ana bilgisayarlara çözülmesini sağlar.
     """
-    address = input("Lütfen çözümlemek istediğiniz URL veya IP adresini girin: ")
-
+    if name == "nt":
+        os.system("cls")
+    else:
+        os.system("clear")
+        web_pinger_art()
+    address = input(Fore.LIGHTYELLOW_EX + " [>] " + Fore.LIGHTCYAN_EX + "Lütfen çözümlemek istediğiniz URL veya IP adresini girin: ")
     try:
         # Adresi çözümleme işlemi
         resolved_addresses = socket.getaddrinfo(address, None)
         
-        print(f"{address} adresinin çözümlenmiş IP adresleri:")
+        print(Fore.LIGHTCYAN_EX + f"{address} adresinin çözümlenmiş IP adresleri:")
         for item in resolved_addresses:
-            print(item[4][0])
+            print(Fore.LIGHTMAGENTA_EX + item[4][0])
+
     except Exception as e:
         print("Bir hata oluştu:", e)
 
