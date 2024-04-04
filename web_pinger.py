@@ -22,18 +22,15 @@ def menu():
     if name == "nt":
         os.system("cls")
     else:
-        os.system("clear")        
+        os.system("clear")
     web_pinger_art()
-
+    stdout.write("Seçenekler:" + "\n")
+    stdout.write("[1] Belirli bir URL'ye sürekli ping gönder" + "\n")
+    stdout.write("[2] Girilen DNS'nin ana adresini çöz" + "\n")
+    stdout.write("[3] Programı kapat" + "\n")
 def main():
-    print("Ping Programına Hoş Geldiniz!")
-    print("-----------------------------")
-
     while True:
-        stdout.write("Seçenekler:" + "\n")
-        print("1: Belirli bir URL'e sürekli ping gönderme")
-        print("2: Adresleri ana bilgisayarlara çözme")
-        print("3: Programı kapat")
+        menu()
 
         choice = input("Lütfen bir seçenek numarası girin: ")
 
@@ -48,9 +45,7 @@ def main():
             print("Geçersiz seçenek! Lütfen yeniden deneyin.")
 
 def ping_continuous():
-    """
-    Belirli bir URL'ye sürekli ping gönderme işlemini gerçekleştirir.
-    """
+    # Belirli bir URL'ye sürekli ping gönderme işlemini gerçekleştirir, ismi üzerinden de anlaşılacağı üzere ping_continuous; devamlı olarak pinglenmesini ifade eder.
     url = input("Lütfen ping atmak istediğiniz URL'yi girin: ")
     
     try:
