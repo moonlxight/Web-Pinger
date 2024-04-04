@@ -67,7 +67,7 @@ def ping_continuous():
 
 def resolve_addresses():
     # Adresleri ana bilgisayarlara çözme işlemini gerçekleştirin
-    
+
     """
     Verilen bir URL veya IP adresinin ana bilgisayarlara çözülmesini sağlar.
     """
@@ -85,7 +85,19 @@ def resolve_addresses():
 
 def set_echo_count():
     # Echo isteği sayısını belirleyin
-    pass
+    
+    """
+    Ping işlemi sırasında gönderilecek olan echo isteği sayısını belirler.
+    """
+    while True:
+        echo_count = input("Lütfen echo isteği sayısını belirleyin (varsayılan 4): ")
+
+        if echo_count.isdigit() and int(echo_count) > 0:
+            return int(echo_count)
+        elif echo_count == "":
+            return 4
+        else:
+            print("Geçersiz giriş! Lütfen pozitif bir tam sayı girin.")
 
 def set_packet_size():
     # Gönderilen veri paketi boyutunu belirleyin
